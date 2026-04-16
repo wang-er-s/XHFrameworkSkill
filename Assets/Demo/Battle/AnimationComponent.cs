@@ -11,7 +11,7 @@ namespace SkillEditor.Runtime
     ///
     /// 使用方式：挂载到角色上，配置 ASC 引用
     /// </summary>
-    public class AnimationComponent : MonoBehaviour
+    public class AnimationComponent : MonoBehaviour, IAnimationComponent
     {
         [Header("引用")]
         [SerializeField] private AbilitySystemComponent _asc;
@@ -86,6 +86,9 @@ namespace SkillEditor.Runtime
             _animation.AnimationState.SetAnimation(0,name,loop);
         }
 
-
+        public void BackIdle()
+        {
+            PlayAnimation("Stan", true);
+        }
     }
 }

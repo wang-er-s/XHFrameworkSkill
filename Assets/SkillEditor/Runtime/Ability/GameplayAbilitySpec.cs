@@ -813,11 +813,8 @@ namespace SkillEditor.Runtime
             if (Owner?.Owner == null || string.IsNullOrEmpty(name))
                 return;
 
-            var animator = Owner.Owner.GetComponent<AnimationComponent>();
-            if (animator != null)
-            {
-                animator.PlayAnimation(name,loop);
-            }
+            var animator = Owner.Owner.GetComponent<IAnimationComponent>();
+            animator?.PlayAnimation(name,loop);
         }
 
         /// <summary>
@@ -827,7 +824,11 @@ namespace SkillEditor.Runtime
         {
             // 动画停止逻辑（如果需要）
             // 通常动画会自然结束或被下一个动画覆盖
-            PlayAnimation("Stand", true);
+            if (Owner?.Owner == null)
+                return;
+
+            var animator = Owner.Owner.GetComponent<IAnimationComponent>();
+            animator?.BackIdle();
         }
 
         /// <summary>
